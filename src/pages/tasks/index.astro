@@ -3,6 +3,9 @@ import Layout from "../../layouts/Layout.astro";
 import "../../styles/main.css";
 
 const tasks = await Astro.glob("../tasks/*.mdx");
+tasks.sort((a, b) =>
+  a.frontmatter.difficulty > b.frontmatter.difficulty ? 1 : -1
+);
 ---
 
 <Layout title="Tasks | Thomas Lower Programming Guides">
@@ -11,13 +14,7 @@ const tasks = await Astro.glob("../tasks/*.mdx");
     <h2>These tasks will help you get started learning a new language.</h2>
     <h2>Pick a task to get started:</h2>
     <ul>
-      {
-        tasks.map((task) => (
-            <a href={task.url}>
-              {task.frontmatter.title}
-            </a>
-        ))
-      }
+      {tasks.map((task) => <a href={task.url}>{task.frontmatter.title}</a>)}
     </ul>
   </main>
 </Layout>
