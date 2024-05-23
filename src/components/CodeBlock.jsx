@@ -5,7 +5,7 @@ export default function CodeBlock({ children }) {
     return (
         <div style={{display: "flex", flexDirection: "column"}}>
             <button style={{float: "right"}} onClick={() => setVisible(!visible)}>{visible ? "Hide" : "Show"} Code</button>
-            {visible && <div style={{fontSize: "0.6em"}}>{children}</div>}
+            {visible && <div>{children}</div>}
         </div>
     );
 }
