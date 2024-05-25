@@ -1,13 +1,10 @@
-button, a {
-  padding: 0.5em 1em;
-  border-radius: 0.5em;
-  background-color: #23262d;
-  color: white;
-  cursor: pointer;
-  font-size: 1rem;
-  text-align: center;
-  text-decoration: none;
-}
+  a {
+    color: green;
+    cursor: pointer;
+    font-size: 1em;
+    text-align: center;
+    text-decoration: none;
+  }
 ul {
   margin-bottom: 0.5em;
   display: flex;
@@ -21,7 +18,7 @@ main {
   width: 800px;
   max-width: calc(100% - 2rem);
   color: white;
-  font-size: 20px;
+  font-size: 1em;
   line-height: 1.6;
 }
 
@@ -47,5 +44,5 @@ p {
 }
 
 code {
-  font-Size: 0.6em;
+  font-Size: 0.8em;
 }
