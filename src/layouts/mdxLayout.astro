@@ -1,10 +1,16 @@
 ---
-interface Props {
-  title: string;
-}
+import type { MarkdownLayoutProps } from "astro";
 
-const { title } = Astro.props;
+type Props = MarkdownLayoutProps<{
+  title: string;
+  headings: { depth: number; slug: string; text: string }[];
+}>;
+
+const { frontmatter, headings } = Astro.props;
 import "../styles/main.css";
+
+const depths = ["", " - ", " - - ", " - - - ", " - - - - ", " - - - - - ",];
+const colours = ["#ffffff", "#bbbbff", "#8888ff", "#4444ff", "#0000ff", "pink"];
 ---
 
 <!doctype html>
@@ -15,45 +21,80 @@ import "../styles/main.css";
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
+    <title>{frontmatter.title}</title>
   </head>
   <body>
     <main>
+      <div class="headingsList">
+        {
+          headings.map(
+            (heading) => heading.depth < 4 ?
+            <div style={{display: "flex", alignItems: "center", marginTop: ((1 - (heading.depth - 3)))/ 1.5 + "em"}}>
+              <p style="padding: 0; margin: 0">{depths[heading.depth-1]}</p>
+              <a style={{color: colours[heading.depth-1]}} href={`#${heading.slug}`}>{heading.text}</a>
+            </div> : null
+          )
+        }
+      </div>
       <button
-        style="position: fixed; bottom: 20px; right: 20px;"
+        style="position: fixed; bottom: 20px; left: 50px;"
         onclick="location.href='https://github.com/supersliser/programmingGuides'"
         >click me to view this code on github</button
       >
       <slot />
     </main>
   </body>
+  <style is:global>
+    :root {
+      --accent: 136, 58, 234;
+      --accent-light: 224, 204, 250;
+      --accent-dark: 49, 10, 101;
+      --accent-gradient: linear-gradient(
+        45deg,
+        rgb(var(--accent)),
+        rgb(var(--accent-light)) 30%,
+        white 60%
+      );
+    }
+    html {
+      font-family: system-ui, sans-serif;
+      background: #13151a;
+      background-size: 224px;
+    }
+    code {
+      font-family:
+        Menlo,
+        Monaco,
+        Lucida Console,
+        Liberation Mono,
+        DejaVu Sans Mono,
+        Bitstream Vera Sans Mono,
+        Courier New,
+        monospace;
+    }
+    .headingsList {
+      position: absolute;
+      top: 50px;
+      right: 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: baseline;
+      align-items: start;
+      border-radius: 25px;
+      border-color: rgb(1, 0, 43);
+      border-width: 1px;
+      border-style: solid;
+      padding: 15px;
+      background-color: #101216;
+    }
+    h2 {
+      margin-top: 10%;
+    }
+
+    @media screen and (max-width: 1400px) {
+      .headingsList {
+        display: none;
+      }
+    }
+  </style>
 </html>
-<style is:global>
-  :root {
-    --accent: 136, 58, 234;
-    --accent-light: 224, 204, 250;
-    --accent-dark: 49, 10, 101;
-    --accent-gradient: linear-gradient(
-      45deg,
-      rgb(var(--accent)),
-      rgb(var(--accent-light)) 30%,
-      white 60%
-    );
-  }
-  html {
-    font-family: system-ui, sans-serif;
-    background: #13151a;
-    background-size: 224px;
-  }
-  code {
-    font-family:
-      Menlo,
-      Monaco,
-      Lucida Console,
-      Liberation Mono,
-      DejaVu Sans Mono,
-      Bitstream Vera Sans Mono,
-      Courier New,
-      monospace;
-  }
-</style>

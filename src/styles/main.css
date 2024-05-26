@@ -1,16 +1,25 @@
-  a {
-    color: green;
-    cursor: pointer;
-    font-size: 1em;
-    text-align: center;
-    text-decoration: none;
-  }
+a {
+  color: green;
+  cursor: pointer;
+  font-size: 1em;
+  text-align: center;
+  text-decoration: none;
+}
+button {
+  padding: 0.5em 1em;
+  border-radius: 0.5em;
+  background-color: #23262d;
+  color: white;
+  cursor: pointer;
+  font-size: 1rem;
+  text-align: center;
+  text-decoration: none;
+}
 ul {
   margin-bottom: 0.5em;
   display: flex;
   flex-direction: column;
   gap: 0.5em;
-
 }
 main {
   margin: auto;
@@ -43,6 +52,14 @@ p {
   font-size: 1rem;
 }
 
+blockquote {
+  font-size: 0.75rem;
+  font-style: italic;
+  margin-bottom: 1em;
+  margin-left: 2rem;
+  color: #aaaaaa;
+}
+
 code {
-  font-Size: 0.8em;
+  font-size: 0.8em;
 }
